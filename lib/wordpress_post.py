@@ -1,20 +1,25 @@
 import os 
 import time
+from utils import *
 from base64 import b64encode
 import json
 import requests
-from wordpresspushmedia import *
+# from wordpresspushmedia import *
 
 #
 # publish the image as a media in wordpress, and return the HTML to include into the post
 #
 def wordpress_publish_image(blogid,title,imageurl,bearer_key):
+    puts("wordpress_publish_image bearer_key",bearer_key, "imageurl",imageurl)
+
     url = "https://public-api.wordpress.com/rest/v1/sites/" + blogid + "/media/new"
-    headers = {"Authorization": "bearer " + bearer_key }
+    headers = {"Authorization": "bearer vXtQWnneUJguXCJbZaV92^L(!p0zE!SgfYxKTMEBWe!XbQeTE$zrfu0t17JiHh9e" }
     postdata = { 'media_urls' : [imageurl] }
     response = requests.post(url, data=json.dumps(postdata), headers=headers)
     jresponse = response.json()
 
+    puts("response",response.json())
+    
     media = jresponse['media'][0];
     general_link = media['link'];
     linkdir = "/".join(general_link.split("/")[:-1])
@@ -42,6 +47,8 @@ def wordpress_publish_image(blogid,title,imageurl,bearer_key):
     HTML = "<img src=\"" + SRC + "\" alt=\"" + TITLE + "\" width=\"" + WIDTH + "\" height=\"" + HEIGHT + "\" class=\"alignnone " + sizetype + " wp-image-" + ID + "\" />"
     return HTML
 
+
+
 #
 # post a wordpress post with image
 #
@@ -57,3 +64,4 @@ def wordpress_post(status,description,title,categories,tags,imageurl,wordpress_b
         print "wordpress post catch exception"
         result = ""
     return result
+

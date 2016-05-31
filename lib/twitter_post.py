@@ -16,6 +16,6 @@ def twitter_post(consumer_key, consumer_secret, access_token_key, access_token_s
     image_ids = twitter.upload_media(media=image_open)
     result = twitter.update_status(status=message,media_ids=[image_ids['media_id']])
     image_open.close()
-
     return result
+
 
