@@ -8,7 +8,7 @@ from twython import Twython
 def twitter_post(consumer_key, consumer_secret, access_token_key, access_token_secret, title, description, siteurl, picture_path): 
     encoding = "utf-8"
     # message = title + " " + description + " " + siteurl
-    message = title
+    # message = title + " @ http://julienleonard.com"
 
     twitter = Twython(app_key=consumer_key, app_secret=consumer_secret, oauth_token=access_token_key, oauth_token_secret=access_token_secret)
 

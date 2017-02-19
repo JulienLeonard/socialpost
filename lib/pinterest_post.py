@@ -9,6 +9,7 @@ import selenium
 import win32api, win32con
 from win32key import *
 import sys
+import os
 
 #
 # trigger an OS click event
@@ -22,7 +23,9 @@ def click(x,y):
 # check that the pin "title" exits in pinterest
 #
 def checkpostpinterest(userid,pinboard,title):
-    driver = webdriver.Firefox()
+    os.system("taskkill /f /im chromedriver.exe")
+    driver = webdriver.Chrome('C:/Home/chromedriver.exe')
+    
     driver.implicitly_wait(10)
     driver.get("http://www.pinterest.com/" + userid + "/" + pinboard + "/")
     pins = driver.find_elements(By.XPATH, '//a[@title="' + title + '"]')
@@ -39,7 +42,8 @@ def checkpostpinterest(userid,pinboard,title):
                 result = "OK"
                 break
 
-    driver.close()
+    driver.close()    
+    os.system("taskkill /f /im chromedriver.exe")
     return result
 
 #
@@ -47,7 +51,10 @@ def checkpostpinterest(userid,pinboard,title):
 #
 def pinterest_post(email_adress,password,pinboard,title,wordpress_post_url):
 
-    driver = webdriver.Firefox()
+    os.system("taskkill /f /im chromedriver.exe")
+
+    driver = webdriver.Chrome('C:/Home/chromedriver.exe')
+
     driver.maximize_window()
     driver.implicitly_wait(3)
 
@@ -86,7 +93,8 @@ def pinterest_post(email_adress,password,pinboard,title,wordpress_post_url):
     typer(pinboard)
     press('enter')
 
-    time.sleep(20)
+    time.sleep(200000)
 
-    driver.close()
+    driver.close()    
+    os.system("taskkill /f /im chromedriver.exe")
 
